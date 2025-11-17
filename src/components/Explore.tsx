@@ -1,39 +1,53 @@
-import React from 'react'
+import Image from "next/image";
+import styles from "../styles/BlogPost.module.css";
 
-const Explore = () => {
-    const ExploreMore = [{
-        title: "Culinary",
-        date: "13 Jun 2022",
-        subLine: "Two women in local stand are chatting during morning..",
-        img: "/Images/explore/explore-1.png"
-    },
-    {
-        title: "Culinary",
-        date: "13 Jun 2022",
-        subLine: "Two women in local stand are chatting during morning..",
-        img: "/Images/explore/explore-2.png"
-    },
-    {
-        title: "Culinary",
-        date: "13 Jun 2022",
-        subLine: "Two women in local stand are chatting during morning..",
-        img: "/Images/explore/explore-3.png"
-    }]
-    return (
-        <div>
-            <div>
-                Explore more
-            </div>
-            {
-                ExploreMore?.map((item) => {
-                    return <div>
-                        <img src={item.img} alt="explore" />
-                        <h3>{item.title}</h3>
-                        <p>{item.date}</p>
-                        <span>{item.subLine}</span>
-                    </div>
-                })}</div>
-    )
+const exploreItems = [
+  {
+    id: 1,
+    title: "Culinary",
+    date: "13 Jun 2022",
+    subLine: "Two women in local stand are chatting during morning.",
+    img: "/images/explore/explore-1.png",
+  },
+  {
+    id: 2,
+    title: "Outdoors",
+    date: "18 Jun 2022",
+    subLine: "Best sunrise spots for trail runners in Bali.",
+    img: "/images/explore/explore-2.png",
+  },
+  {
+    id: 3,
+    title: "Wellness",
+    date: "21 Jun 2022",
+    subLine: "Breathing exercises for faster recovery.",
+    img: "/images/explore/explore-3.png",
+  },
+];
+
+export default function Explore() {
+  return (
+    <section className={styles.sidebarCard}>
+      <div className={styles.sidebarCard__header}>Explore more</div>
+
+      <ul className={styles.exploreList}>
+        {exploreItems.map((item) => (
+          <li key={item.id} className={styles.exploreList__item}>
+            <Image
+              src={item.img}
+              alt={item.title}
+              width={301}
+              height={165}
+              className={styles.exploreList__image}
+            />
+              <div className={styles.exploreList__wrapper}>
+                <p className={styles.exploreList__title}>{item.title}</p>
+                <p className={styles.exploreList__date}>| {" "}{item.date}</p>
+              </div>
+              <p className={styles.exploreList__excerpt}>{item.subLine}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
-
-export default Explore

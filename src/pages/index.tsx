@@ -2,6 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import { getAllPosts } from "@/lib/posts";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
-  return (
+  const posts = getAllPosts();
+    return (
     <>
       <Head>
         <title>Create Next App</title>
@@ -23,7 +26,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        list of posts
+        {posts.map((post) => (
+          <Link key={post.slug} href={`/blog/${post.slug}`}>
+            <h2>{post.meta.title}</h2>
+          </Link>
+        ))}
       </div>
     </>
   );
