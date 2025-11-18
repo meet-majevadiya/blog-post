@@ -76,7 +76,7 @@ export default function AddComment() {
         <div className={styles.form__rate}>
           <div className={styles.form__rate_input}>
             <p>Rate the usefulness of the article</p>
-            <div>
+            <div className={styles.rate__icons}>
               <Image
                 src="/Images/icons/emoji-1.png"
                 alt={`next`}
@@ -95,17 +95,19 @@ export default function AddComment() {
                 width={40}
                 height={40}
               />
+
+              <button type="submit" className={styles.rate__btn}>
+                <Image
+                  src="/Images/icons/emoji-4.png"
+                  alt={`next`}
+                  width={16}
+                  height={16}
+                />
+                Good
+              </button>
             </div>
           </div>
-          <button type="submit" className={styles.rate__btn}>
-            <Image
-              src="/Images/icons/emoji-4.png"
-              alt={`next`}
-              width={16}
-              height={16}
-            />
-            Good
-          </button>
+
           <button type="submit" className={styles.send__btn}>
             <Image
               src="/Images/icons/send.png"

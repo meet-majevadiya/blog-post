@@ -38,15 +38,8 @@ const AUTHOR = {
 };
 
 export default function Post({ post }: { post: PostProps }) {
-  const sliderRef = useRef<any>(null);
+  const authorSliderRef = useRef<any>(null);
 
-  const publishedDate = post.meta.date
-    ? new Date(post.meta.date).toLocaleDateString(undefined, {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      })
-    : "—";
   var settings = {
     dots: false,
     infinite: true,
@@ -77,72 +70,165 @@ export default function Post({ post }: { post: PostProps }) {
             width={1440}
             height={640}
             priority
-            className={styles.hero__image}
+            className={`${styles.hero__image} ${styles.hero__desktop}`}
+          />
+          <Image
+            src="/images/thumbnail/thumb-2.png"
+            alt="Athlete training in a gym"
+            width={1440}
+            height={640}
+            priority
+            className={`${styles.hero__image}  ${styles.hero__mobile}`}
           />
         </div>
 
         <div className={styles.page}>
-          <section className={styles.layout}>
-            <article className={styles.article}>
-              <header className={styles.article__header}>
-                <div className={styles.authorCard}>
-                  <Image
-                    src={AUTHOR.avatar}
-                    alt={`${AUTHOR.name} profile photo`}
-                    width={64}
-                    height={64}
-                    className={styles.authorCard__avatar}
-                  />
-                  <div>
-                    <p className={styles.authorCard__name}>{AUTHOR.name}</p>
+          <div className={styles.contentWrapper}>
+            <section className={styles.layout}>
+              <article className={styles.article}>
+                <header className={styles.article__header}>
+                  <div className={styles.authorCard}>
+                    <Image
+                      src={AUTHOR.avatar}
+                      alt={`${AUTHOR.name} profile photo`}
+                      width={64}
+                      height={64}
+                      className={styles.authorCard__avatar}
+                    />
+                    <div>
+                      <p className={styles.authorCard__name}>{AUTHOR.name}</p>
+                      <div className={styles.article__actions__mobile}>
+                        23 January 2025
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.article__actions__desktop}>
+                    23 January 2025
+                  </div>
+                </header>
+
+                <section
+                  className={`${styles.article__body} ${styles.mobileOrder1}`}
+                >
+                  {post.content.first?.map((item, idx) => {
+                    return (
+                      <p key={idx} className={styles.article__paragraph}>
+                        {item}
+                      </p>
+                    );
+                  })}
+                  <blockquote className={styles.article__quote}>
+                    {post.content.quote}
+                  </blockquote>
+                  {post.content.second?.map((item, idx) => {
+                    return (
+                      <p key={idx} className={styles.article__paragraph}>
+                        {item}
+                      </p>
+                    );
+                  })}
+                </section>
+                <div
+                  className={`${styles.slide_wrapper} ${styles.aboutAuthorDesktop}`}
+                >
+                  <Slider {...settings} ref={authorSliderRef}>
+                    {authors?.map((item, idx) => (
+                      <section className={styles.aboutAuthor} key={idx}>
+                        <h3 className={styles.aboutAuthor__name}>
+                          About {item.name}
+                        </h3>
+                        <div className={styles.aboutAuthor__content}>
+                          <Image
+                            src={item.avatar}
+                            alt={`${AUTHOR.name} headshot`}
+                            width={100}
+                            height={100}
+                          />
+                          <p className={styles.aboutAuthor__bio}>{item.bio}</p>
+                        </div>
+                      </section>
+                    ))}
+                  </Slider>
+                </div>
+
+                <div
+                  className={`${styles.slide__btn_wrapper} ${styles.aboutAuthorDesktop}`}
+                >
+                  <button
+                    onClick={() => authorSliderRef.current?.slickPrev()}
+                    className={styles.slide__button}
+                  >
+                    <Image
+                      src="/Images/icons/prev.png"
+                      alt={`prev`}
+                      width={16}
+                      height={16}
+                    />{" "}
+                    Previous
+                  </button>
+                  <button
+                    onClick={() => authorSliderRef.current?.slickNext()}
+                    className={styles.slide__button}
+                  >
+                    <Image
+                      src="/Images/icons/next.png"
+                      alt={`next`}
+                      width={16}
+                      height={16}
+                    />{" "}
+                    Next
+                  </button>
+                </div>
+                <div className={`${styles.aboutAuthorDesktop}`}>
+                  <div className={styles.slide__subline}>
+                    <p>5 Tips for Better Cardio Sessions</p>
+                    <p>Meal Prep Basics for Gym Enthusiasts</p>
                   </div>
                 </div>
-                <div className={styles.article__actions}>23 January 2025</div>
-              </header>
-
-              <section className={styles.article__body}>
-                {post.content.first?.map((item, idx) => {
-                  return (
-                    <p key={idx} className={styles.article__paragraph}>
-                      {item}
-                    </p>
-                  );
-                })}
-                <blockquote className={styles.article__quote}>
-                  {post.content.quote}
-                </blockquote>
-                {post.content.second?.map((item, idx) => {
-                  return (
-                    <p key={idx} className={styles.article__paragraph}>
-                      {item}
-                    </p>
-                  );
-                })}
-              </section>
-              <div className={styles.slide_wrapper}>
-                <Slider {...settings} ref={sliderRef}>
-                  {authors?.map((item, idx) => (
-                    <section className={styles.aboutAuthor} key={idx}>
-                      <h3 className={styles.aboutAuthor__name}>
-                        About {item.name}
-                      </h3>
-                      <div className={styles.aboutAuthor__content}>
-                        <Image
-                          src={item.avatar}
-                          alt={`${AUTHOR.name} headshot`}
-                          width={100}
-                          height={100}
-                        />
-                        <p className={styles.aboutAuthor__bio}>{item.bio}</p>
-                      </div>
-                    </section>
-                  ))}
-                </Slider>
-              </div>
-
+              </article>
+              <aside className={styles.sidebar}>
+                <div className={styles.mobileOrder2}>
+                  <Explore />
+                </div>
+                <div className={styles.mobileOrder3}>
+                  <TourGuide />
+                </div>
+              </aside>
+            </section>
+            <div className={`${styles.mobileOrder4}`}>
+              <Comments slug={post.slug} />
+            </div>
+            <div className={`${styles.mobileOrder5}`}>
+              <AddComment />
+            </div>
+            <div
+              className={`${styles.slide_wrapper} ${styles.mobileOrder6} ${styles.aboutAuthorMobile}`}
+            >
+              <Slider {...settings} ref={authorSliderRef}>
+                {authors?.map((item, idx) => (
+                  <section className={styles.aboutAuthor} key={idx}>
+                    <h3 className={styles.aboutAuthor__name}>
+                      About {item.name}
+                    </h3>
+                    <div className={styles.aboutAuthor__content}>
+                      <Image
+                        src={item.avatar}
+                        alt={`${AUTHOR.name} headshot`}
+                        width={100}
+                        height={100}
+                      />
+                      <p className={styles.aboutAuthor__bio}>{item.bio}</p>
+                    </div>
+                  </section>
+                ))}
+              </Slider>
+            </div>
+            <div
+              className={`${styles.mobileOrder6} ${styles.aboutAuthorMobile}`}
+            >
               <div className={styles.slide__btn_wrapper}>
                 <button
-                  onClick={() => sliderRef.current.slickPrev()}
+                  onClick={() => authorSliderRef.current?.slickPrev()}
                   className={styles.slide__button}
                 >
                   <Image
@@ -154,7 +240,7 @@ export default function Post({ post }: { post: PostProps }) {
                   Previous
                 </button>
                 <button
-                  onClick={() => sliderRef.current.slickNext()}
+                  onClick={() => authorSliderRef.current?.slickNext()}
                   className={styles.slide__button}
                 >
                   <Image
@@ -166,19 +252,11 @@ export default function Post({ post }: { post: PostProps }) {
                   Next
                 </button>
               </div>
-              <div className={styles.slide__subline}>
-                <p>5 Tips for Better Cardio Sessions</p>
-                <p>Meal Prep Basics for Gym Enthusiasts</p>
-              </div>
-            </article>
-            <aside className={styles.sidebar}>
-              <Explore />
-              <TourGuide />
-            </aside>
-          </section>
-          <Comments slug={post.slug} />
-          <AddComment />
-          <Articles />
+            </div>
+            <div className={`${styles.mobileOrder7}`}>
+              <Articles />
+            </div>
+          </div>
         </div>
       </div>
     </>
