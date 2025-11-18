@@ -214,6 +214,15 @@
   display: none;
 }
 
+.authorSectionDesktop {
+  display: block;
+  margin-bottom: 32px;
+}
+
+.authorSectionMobile {
+  display: none;
+}
+
 .slide_wrapper{
     width: 100%;
     max-width: 100%;
@@ -624,11 +633,36 @@
   }
 
   .aboutAuthorDesktop {
-    display: block;
+    display: block !important;
   }
 
   .aboutAuthorMobile {
-    display: none;
+    display: none !important;
+  }
+
+  .authorSectionDesktop {
+    display: block !important;
+  }
+
+  .authorSectionMobile {
+    display: none !important;
+  }
+
+  /* Ensure button wrappers are also hidden/shown correctly */
+  .aboutAuthorDesktop .slide__btn_wrapper {
+    display: flex !important;
+  }
+
+  .aboutAuthorMobile .slide__btn_wrapper {
+    display: none !important;
+  }
+
+  .authorSectionDesktop .slide__btn_wrapper {
+    display: flex !important;
+  }
+
+  .authorSectionMobile .slide__btn_wrapper {
+    display: none !important;
   }
 
   .mobileOrder1,
@@ -645,6 +679,13 @@
 .contentWrapper {
   display: flex;
   flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .mobileOrder1 {
@@ -750,11 +791,63 @@
   }
 
   .aboutAuthorDesktop {
-    display: none;
+    display: none !important;
   }
 
   .aboutAuthorMobile {
-    display: block;
+    display: none !important;
+  }
+
+  .authorSectionDesktop {
+    display: none !important;
+  }
+
+  .authorSectionMobile {
+    display: block !important;
+  }
+
+  /* Make layout use contents so article children can participate in contentWrapper order */
+  .layout {
+    display: contents;
+  }
+
+  /* Article and its children participate in contentWrapper order */
+  .article {
+    display: contents;
+  }
+
+  .article__header {
+    order: 0;
+  }
+
+  .article__body {
+    order: 1;
+  }
+
+  /* Author mobile version appears after AddComment (order 6) */
+  .article .authorSectionMobile {
+    order: 6;
+  }
+
+  .sidebar {
+    order: 2;
+  }
+
+  /* Ensure button wrappers are also hidden/shown correctly */
+  .aboutAuthorDesktop .slide__btn_wrapper {
+    display: none !important;
+  }
+
+  .aboutAuthorMobile .slide__btn_wrapper {
+    display: flex !important;
+  }
+
+  .authorSectionDesktop .slide__btn_wrapper {
+    display: none !important;
+  }
+
+  .authorSectionMobile .slide__btn_wrapper {
+    display: flex !important;
   }
 
   .exploreSlider .slick-slider {
@@ -878,5 +971,9 @@
 
   .form__rate_input{
     flex-direction: column;
+  }
+
+  .hero__title{
+    font-size: 28px;
   }
 }

@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useMemo, useRef, useState } from "react";
 import { getPostSlugs, getPostBySlug } from "../../lib/posts";
 import styles from "../../styles/BlogPost.module.css";
 import Comments from "@/components/Comments";
@@ -9,8 +8,7 @@ import Explore from "@/components/Explore";
 import TourGuide from "@/components/TourGuide";
 import AddComment from "@/components/AddComment";
 import Articles from "@/components/Articles";
-import Slider from "react-slick";
-import { authors } from "@/posts/mock";
+import Author from "@/components/Author";
 
 // Dynamically load the Markdown editor only when requested
 const EditEditor = dynamic(() => import("../../components/EditEditor"), {
@@ -38,15 +36,6 @@ const AUTHOR = {
 };
 
 export default function Post({ post }: { post: PostProps }) {
-  const authorSliderRef = useRef<any>(null);
-
-  var settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   return (
     <>
       <Head>
@@ -128,63 +117,8 @@ export default function Post({ post }: { post: PostProps }) {
                     );
                   })}
                 </section>
-                <div
-                  className={`${styles.slide_wrapper} ${styles.aboutAuthorDesktop}`}
-                >
-                  <Slider {...settings} ref={authorSliderRef}>
-                    {authors?.map((item, idx) => (
-                      <section className={styles.aboutAuthor} key={idx}>
-                        <h3 className={styles.aboutAuthor__name}>
-                          About {item.name}
-                        </h3>
-                        <div className={styles.aboutAuthor__content}>
-                          <Image
-                            src={item.avatar}
-                            alt={`${AUTHOR.name} headshot`}
-                            width={100}
-                            height={100}
-                          />
-                          <p className={styles.aboutAuthor__bio}>{item.bio}</p>
-                        </div>
-                      </section>
-                    ))}
-                  </Slider>
-                </div>
-
-                <div
-                  className={`${styles.slide__btn_wrapper} ${styles.aboutAuthorDesktop}`}
-                >
-                  <button
-                    onClick={() => authorSliderRef.current?.slickPrev()}
-                    className={styles.slide__button}
-                  >
-                    <Image
-                      src="/Images/icons/prev.png"
-                      alt={`prev`}
-                      width={16}
-                      height={16}
-                    />{" "}
-                    Previous
-                  </button>
-                  <button
-                    onClick={() => authorSliderRef.current?.slickNext()}
-                    className={styles.slide__button}
-                  >
-                    <Image
-                      src="/Images/icons/next.png"
-                      alt={`next`}
-                      width={16}
-                      height={16}
-                    />{" "}
-                    Next
-                  </button>
-                </div>
-                <div className={`${styles.aboutAuthorDesktop}`}>
-                  <div className={styles.slide__subline}>
-                    <p>5 Tips for Better Cardio Sessions</p>
-                    <p>Meal Prep Basics for Gym Enthusiasts</p>
-                  </div>
-                </div>
+                {/* Author Component - Desktop: After paragraph, Mobile: After Add Comment */}
+                <Author />
               </article>
               <aside className={styles.sidebar}>
                 <div className={styles.mobileOrder2}>
@@ -200,58 +134,6 @@ export default function Post({ post }: { post: PostProps }) {
             </div>
             <div className={`${styles.mobileOrder5}`}>
               <AddComment />
-            </div>
-            <div
-              className={`${styles.slide_wrapper} ${styles.mobileOrder6} ${styles.aboutAuthorMobile}`}
-            >
-              <Slider {...settings} ref={authorSliderRef}>
-                {authors?.map((item, idx) => (
-                  <section className={styles.aboutAuthor} key={idx}>
-                    <h3 className={styles.aboutAuthor__name}>
-                      About {item.name}
-                    </h3>
-                    <div className={styles.aboutAuthor__content}>
-                      <Image
-                        src={item.avatar}
-                        alt={`${AUTHOR.name} headshot`}
-                        width={100}
-                        height={100}
-                      />
-                      <p className={styles.aboutAuthor__bio}>{item.bio}</p>
-                    </div>
-                  </section>
-                ))}
-              </Slider>
-            </div>
-            <div
-              className={`${styles.mobileOrder6} ${styles.aboutAuthorMobile}`}
-            >
-              <div className={styles.slide__btn_wrapper}>
-                <button
-                  onClick={() => authorSliderRef.current?.slickPrev()}
-                  className={styles.slide__button}
-                >
-                  <Image
-                    src="/Images/icons/prev.png"
-                    alt={`prev`}
-                    width={16}
-                    height={16}
-                  />{" "}
-                  Previous
-                </button>
-                <button
-                  onClick={() => authorSliderRef.current?.slickNext()}
-                  className={styles.slide__button}
-                >
-                  <Image
-                    src="/Images/icons/next.png"
-                    alt={`next`}
-                    width={16}
-                    height={16}
-                  />{" "}
-                  Next
-                </button>
-              </div>
             </div>
             <div className={`${styles.mobileOrder7}`}>
               <Articles />
