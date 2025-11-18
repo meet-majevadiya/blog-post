@@ -1,40 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+**Blog Project**
 
-## Getting Started
+This is a simple blog built with Next.js. It includes a small set of components, a blog post page, and mock data used for development.
 
-First, run the development server:
+**Quick Links**
+- **Source:** `src/`
+- **Pages:** `src/pages/`
+- **Styles:** `src/styles/` (see `color.css` for design tokens)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**Features**
+- Article listing and single article page (`src/pages/blog/[slug].tsx`).
+- Components for comments, authors, explore list and a simple editor.
+- Uses a local mock dataset for development in `posts/mock.json` and `posts/mock.ts`.
+
+**Prerequisites**
+- Node.js (LTS recommended)
+- npm, yarn or pnpm
+
+**Install**
+
+Open a terminal in the project root and run (cmd):
+
+```cmd
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Run (development)**
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```cmd
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Open http://localhost:3000 in your browser.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+**Build and Start (production)**
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```cmd
+npm run build
+npm start
+```
 
-## Learn More
+**Project Structure (important files)**
+- `src/pages/` — Next.js pages (routing)
+- `src/components/` — React components used across pages
+- `src/styles/color.css` — Centralized CSS variables (colors/tokens)
+- `src/styles/BlogPost.module.css` — Post-specific styles (now uses `color.css` variables)
+- `posts/mock.json` — JSON mock dataset you can import directly
+- `posts/mock.ts` — TypeScript mock module exporting the same mock data
 
-To learn more about Next.js, take a look at the following resources:
+**Using the mock data**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+You can use the included mock data during development for pages and components. Examples:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Import the JSON directly:
 
-## Deploy on Vercel
+```ts
+import posts from '../posts/mock.json';
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+export async function getStaticProps() {
+	return { props: { posts } };
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Or import from the TypeScript module (if it exports named/ default exports):
+
+```ts
+import { mockPosts } from '../posts/mock';
+```
+
+Feel free to extend `posts/mock.json` to add extra articles, authors, or comments. The project reads the data locally for examples and development.
+
+**Styling / Design tokens**
+
+- All color tokens live in `src/styles/color.css`. Edit that file to change core colors across the blog.
+- `src/styles/BlogPost.module.css` was refactored to use `var(--...)` values from `color.css`.
+
+**Tips & Notes**
+- When editing components or pages, Next.js will hot-reload the dev server.
+- If you add TypeScript types to `posts/mock.ts`, you can improve type-safety for components consuming the mock data.
+- Consider normalizing tokens in `color.css` if you plan to support theming (dark/light).
+
+**Contributing / Next steps**
+- Convert other stylesheets to use `color.css` variables for consistent theming.
+- Add more example posts to `posts/mock.json` and update `src/lib/posts.ts` if needed.
+
+**License**
+- This repository doesn't include a license by default. Add one (e.g., MIT) if you intend to publish or share.
+
+---
+
+If you'd like, I can also:
+- Convert other CSS files (`Home.module.css`, `globals.css`, etc.) to use the same variables.
+- Create a short style token reference file documenting each `--` variable and their intended usage.
