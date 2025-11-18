@@ -78,19 +78,19 @@ export default function AddComment() {
             <p>Rate the usefulness of the article</p>
             <div className={styles.rate__icons}>
               <Image
-                src="/Images/icons/emoji-1.png"
+                src="/images/icons/emoji-1.png"
                 alt={`next`}
                 width={40}
                 height={40}
               />
               <Image
-                src="/Images/icons/emoji-2.png"
+                src="/images/icons/emoji-2.png"
                 alt={`next`}
                 width={40}
                 height={40}
               />
               <Image
-                src="/Images/icons/emoji-3.png"
+                src="/images/icons/emoji-3.png"
                 alt={`next`}
                 width={40}
                 height={40}
@@ -98,7 +98,7 @@ export default function AddComment() {
 
               <button type="submit" className={styles.rate__btn}>
                 <Image
-                  src="/Images/icons/emoji-4.png"
+                  src="/images/icons/emoji-4.png"
                   alt={`next`}
                   width={16}
                   height={16}
@@ -110,7 +110,7 @@ export default function AddComment() {
 
           <button type="submit" className={styles.send__btn}>
             <Image
-              src="/Images/icons/send.png"
+              src="/images/icons/send.png"
               alt={`next`}
               width={16}
               height={16}

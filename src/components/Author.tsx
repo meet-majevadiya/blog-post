@@ -46,7 +46,7 @@ export default function Author() {
             className={styles.slide__button}
           >
             <Image
-              src="/Images/icons/prev.png"
+              src="/images/icons/prev.png"
               alt="prev"
               width={16}
               height={16}
@@ -58,7 +58,7 @@ export default function Author() {
             className={styles.slide__button}
           >
             <Image
-              src="/Images/icons/next.png"
+              src="/images/icons/next.png"
               alt="next"
               width={16}
               height={16}
@@ -100,7 +100,7 @@ export default function Author() {
             className={styles.slide__button}
           >
             <Image
-              src="/Images/icons/prev.png"
+              src="/images/icons/prev.png"
               alt="prev"
               width={16}
               height={16}
@@ -112,7 +112,7 @@ export default function Author() {
             className={styles.slide__button}
           >
             <Image
-              src="/Images/icons/next.png"
+              src="/images/icons/next.png"
               alt="next"
               width={16}
               height={16}
