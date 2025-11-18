@@ -1,4 +1,37 @@
 :root {
-   --grey:#4E5265;
-   --black:#000000;
-}   
+   /* Core tokens */
+   --black: #000000;
+   --white: #ffffff;
+
+   /* Neutrals */
+   --grey: #4E5265;
+   --text-default: hsl(222, 47%, 11%);
+   --title: #10152e;
+   --dark-ink: #0f172a;
+   --muted: #475569;
+   --muted-variant: #64748b;
+   --muted-light: #94a3b8;
+   --bg: #f1f5f9;
+   --border: #cbd5f5;
+   --light-border: #e5e6ea;
+   --gray-100: #f5f5f5;
+
+   /* Accent / semantic */
+   --accent: #0ea5e9;
+   --accent-2: #0e7490;
+   --yellow: #facc15;
+   --success: #00ba5c;
+   --danger-bg: #fef2f2;
+   --danger-border: #fecaca;
+
+   /* Gradients / special */
+   --avatar-grad-start: #f43f5e;
+   --avatar-grad-end: #f97316;
+   --skeleton-start: #e2e8f0;
+   --skeleton-mid: #f8fafc;
+
+   /* Minor / content */
+   --author-bio: #3e3232;
+   --text-strong: #1e293b;
+   --badge-bg: #ecfeff;
+}
