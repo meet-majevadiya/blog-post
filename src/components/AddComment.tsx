@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "../styles/BlogPost.module.css";
+import Image from "next/image";
 
 const INITIAL_STATE = {
   name: "",
@@ -41,7 +42,6 @@ export default function AddComment() {
                   name="name"
                   required
                   value={form.name}
-                  placeholder="Jane Doe"
                   onChange={handleChange}
                 />
               </label>
@@ -54,7 +54,6 @@ export default function AddComment() {
                   name="email"
                   required
                   value={form.email}
-                  placeholder="jane@email.com"
                   onChange={handleChange}
                 />
               </label>
@@ -68,14 +67,52 @@ export default function AddComment() {
                 rows={5}
                 required
                 value={form.comment}
-                placeholder="Share your thoughts..."
+                placeholder="Search anything..."
                 onChange={handleChange}
               />
             </label>
           </div>
         </div>
         <div className={styles.form__rate}>
-          <button type="submit" className={styles.button}>
+          <div className={styles.form__rate_input}>
+            <p>Rate the usefulness of the article</p>
+            <div>
+              <Image
+                src="/Images/icons/emoji-1.png"
+                alt={`next`}
+                width={40}
+                height={40}
+              />
+              <Image
+                src="/Images/icons/emoji-2.png"
+                alt={`next`}
+                width={40}
+                height={40}
+              />
+              <Image
+                src="/Images/icons/emoji-3.png"
+                alt={`next`}
+                width={40}
+                height={40}
+              />
+            </div>
+          </div>
+          <button type="submit" className={styles.rate__btn}>
+            <Image
+              src="/Images/icons/emoji-4.png"
+              alt={`next`}
+              width={16}
+              height={16}
+            />
+            Good
+          </button>
+          <button type="submit" className={styles.send__btn}>
+            <Image
+              src="/Images/icons/send.png"
+              alt={`next`}
+              width={16}
+              height={16}
+            />
             Send
           </button>
         </div>

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { getPostSlugs, getPostBySlug } from "../../lib/posts";
 import styles from "../../styles/BlogPost.module.css";
 import Comments from "@/components/Comments";
@@ -9,6 +9,8 @@ import Explore from "@/components/Explore";
 import TourGuide from "@/components/TourGuide";
 import AddComment from "@/components/AddComment";
 import Articles from "@/components/Articles";
+import Slider from "react-slick";
+import { authors } from "@/posts/mock";
 
 // Dynamically load the Markdown editor only when requested
 const EditEditor = dynamic(() => import("../../components/EditEditor"), {
@@ -16,12 +18,16 @@ const EditEditor = dynamic(() => import("../../components/EditEditor"), {
   loading: () => <p>Loading editor…</p>,
 });
 
-type PostContent = Record<string, string>;
+type PostContent = string;
 
 type PostProps = {
   slug: string;
   meta: { title: string; date: string | null; description?: string };
-  content: PostContent;
+  content: {
+    first: PostContent[];
+    quote: PostContent;
+    second: PostContent[];
+  };
 };
 
 const AUTHOR = {
@@ -32,17 +38,7 @@ const AUTHOR = {
 };
 
 export default function Post({ post }: { post: PostProps }) {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const { paragraphs, quote } = useMemo(() => {
-    const { quote: quoteCopy, ...rest } = post.content || {};
-    const paragraphList = Object.values(rest).filter(Boolean);
-
-    return {
-      paragraphs: paragraphList,
-      quote: quoteCopy,
-    };
-  }, [post.content]);
+  const sliderRef = useRef<any>(null);
 
   const publishedDate = post.meta.date
     ? new Date(post.meta.date).toLocaleDateString(undefined, {
@@ -51,7 +47,13 @@ export default function Post({ post }: { post: PostProps }) {
         year: "numeric",
       })
     : "—";
-
+  var settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <>
       <Head>
@@ -99,43 +101,76 @@ export default function Post({ post }: { post: PostProps }) {
               </header>
 
               <section className={styles.article__body}>
-                {paragraphs.map((text, idx) => (
-                  <p key={idx} className={styles.article__paragraph}>
-                    {text}
-                  </p>
-                ))}
-
-                {quote && (
-                  <blockquote className={styles.article__quote}>
-                    {quote}
-                  </blockquote>
-                )}
+                {post.content.first?.map((item, idx) => {
+                  return (
+                    <p key={idx} className={styles.article__paragraph}>
+                      {item}
+                    </p>
+                  );
+                })}
+                <blockquote className={styles.article__quote}>
+                  {post.content.quote}
+                </blockquote>
+                {post.content.second?.map((item, idx) => {
+                  return (
+                    <p key={idx} className={styles.article__paragraph}>
+                      {item}
+                    </p>
+                  );
+                })}
               </section>
+              <div className={styles.slide_wrapper}>
+                <Slider {...settings} ref={sliderRef}>
+                  {authors?.map((item, idx) => (
+                    <section className={styles.aboutAuthor} key={idx}>
+                      <h3 className={styles.aboutAuthor__name}>
+                        About {item.name}
+                      </h3>
+                      <div className={styles.aboutAuthor__content}>
+                        <Image
+                          src={item.avatar}
+                          alt={`${AUTHOR.name} headshot`}
+                          width={100}
+                          height={100}
+                        />
+                        <p className={styles.aboutAuthor__bio}>{item.bio}</p>
+                      </div>
+                    </section>
+                  ))}
+                </Slider>
+              </div>
 
-              <section className={styles.aboutAuthor}>
-                <h3 className={styles.aboutAuthor__name}>About {AUTHOR.name}</h3>
-                <div className={styles.aboutAuthor__content}>
+              <div className={styles.slide__btn_wrapper}>
+                <button
+                  onClick={() => sliderRef.current.slickPrev()}
+                  className={styles.slide__button}
+                >
                   <Image
-                    src={AUTHOR.avatar}
-                    alt={`${AUTHOR.name} headshot`}
-                    width={100}
-                    height={100}
-                  />
-                  <p className={styles.aboutAuthor__bio}>{AUTHOR.bio}</p>
-                </div>
-              </section>
-
-              {isEditing && (
-                <div className={styles.editorPanel}>
-                  <EditEditor
-                    initialValue={
-                      paragraphs.join("\n\n") + `\n\n${quote ?? ""}`
-                    }
-                  />
-                </div>
-              )}
+                    src="/Images/icons/prev.png"
+                    alt={`prev`}
+                    width={16}
+                    height={16}
+                  />{" "}
+                  Previous
+                </button>
+                <button
+                  onClick={() => sliderRef.current.slickNext()}
+                  className={styles.slide__button}
+                >
+                  <Image
+                    src="/Images/icons/next.png"
+                    alt={`next`}
+                    width={16}
+                    height={16}
+                  />{" "}
+                  Next
+                </button>
+              </div>
+              <div className={styles.slide__subline}>
+                <p>5 Tips for Better Cardio Sessions</p>
+                <p>Meal Prep Basics for Gym Enthusiasts</p>
+              </div>
             </article>
-
             <aside className={styles.sidebar}>
               <Explore />
               <TourGuide />

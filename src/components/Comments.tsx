@@ -30,14 +30,14 @@ const mockApi = async (): Promise<Comment[]> => {
       author: "Sarah Lynn",
       rating: 5,
       body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus ",
-      date: "2 days ago",
+      date: "22 jul 2022",
     },
     {
       id: 2,
       author: "Diego Martin",
       rating: 4,
       body: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus ",
-      date: "1 week ago",
+      date: "22 jul 2022",
     },
   ];
 };
